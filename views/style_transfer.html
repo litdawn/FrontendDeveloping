@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>style transfer</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/detail_picture.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/button.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style_transfer.css">
+</head>
+<body>
+<div class="pic">
+    <div class="notice">
+        <h2>
+            注意:上传图片时,请确保源文件在如下标注中对应的目录内,且扩展名必须为.jp(e)g;
+            在512*512大小, 默认训练轮数100轮的情况下耗时约2-3min。
+        </h2>
+    </div>
+    <div id="input-container">
+        <div id="content-input-container" class="secondary-container">
+            <h3>内容图片</h3>
+            <canvas id="content-img" class="img-canvas" width="256" height="256"></canvas>
+            <input id="content-input" type="file" name="" onchange="load_content_img()">
+            <h3>(./public/images/style_trans/content_img)</h3>
+        </div>
+        <div id="style-input-container" class="secondary-container">
+            <h3>风格图片 </h3>
+            <!--            <div class="img-canvas">-->
+            <canvas id="style-img" class="img-canvas" height="256" width="256"></canvas>
+            <!--            </div>-->
+            <input id="style_input" type="file" name="" onchange="load_style_img()">
+            <h3>(./public/images/style_trans/style_img)</h3>
+        </div>
+    </div>
+    <div id="result-container">
+
+        <button class="normal-button" onclick="load_model()">开始训练</button>
+        <h3>结果</h3>
+        <canvas width="256" class="img-canvas" height="256" id="result-img"></canvas>
+
+    </div>
+</div>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const content_base = "/images/style_trans/content_img/";
+    const style_base = "/images/style_trans/style_img/";
+    const pic_size = 512;
+
+    let content_ctx = document.getElementById("content-img")
+    let style_ctx = document.getElementById("style-img")
+    let result_ctx = document.getElementById("result-img")
+    content_ctx.width = content_ctx.height = pic_size;
+    style_ctx.width = style_ctx.height = pic_size;
+    result_ctx.width = result_ctx.height = pic_size;
+
+
+    function load_content_img() {
+        let output_message = document.getElementById("content-input").value;
+        let content_img_path = content_base + process_path(output_message);
+        localStorage.content_img_path = content_img_path;
+        let content_img = new Image();
+        content_img.src = content_img_path;
+        content_img.onload = function () {
+            let content_ctx = document.getElementById("content-img").getContext('2d');
+            content_ctx.drawImage(this, 0, 0, pic_size, pic_size);
+        }
+    }
+
+    function load_style_img() {
+        let input_message = document.getElementById("style_input").value;
+        let style_img_path = style_base + process_path(input_message);
+        localStorage.style_img_path = style_img_path;
+        let style_img = new Image();
+        style_img.src = style_img_path;
+        console.log(style_img.width);
+        style_img.onload = function () {
+            console.log(1)
+            let style_ctx = document.getElementById("style-img").getContext('2d');
+            style_ctx.drawImage(this, 0, 0, pic_size, pic_size);
+            console.log(style_img.width)
+            // load_model();
+        }
+    }
+
+    function process_path(raw_path) {
+        let result;
+        for (let i = 0; i < raw_path.length; i++) {
+            if (raw_path[i] === '\\') {
+                result = "";
+            } else {
+                result += raw_path[i]
+            }
+        }
+        return result;
+    }
+
+
+    function load_model() {
+        let content_ctx = document.getElementById("content-img").getContext('2d');
+        let style_ctx = document.getElementById("style-img").getContext('2d');
+        // console.log(style_ctx.getImageData(0,0,pic_size,pic_size).data)
+        axios.post('/api/load_model', {
+            style_img: localStorage.style_img_path,
+            content_img: localStorage.content_img_path,
+            size: pic_size
+        }).then(res => {
+            const result_ctx = document.getElementById("result-img").getContext('2d');
+            let result_data = result_ctx.createImageData(pic_size, pic_size);
+            result_data.width = pic_size;
+            result_data.height = pic_size;
+            let real_img_data = res.data.data;
+            for (let i = 0; i < real_img_data.length; i++) {
+                for (let j = 0; j < real_img_data[0].length; j++) {
+                    result_data.data[i * pic_size * 4 + j * 4] = real_img_data[i][j][0];
+                    result_data.data[i * pic_size * 4 + j * 4 + 1] = real_img_data[i][j][1];
+                    result_data.data[i * pic_size * 4 + j * 4 + 2] = real_img_data[i][j][2];
+                    result_data.data[i * pic_size * 4 + j * 4 + 3] = 255;
+                }
+            }
+            result_ctx.putImageData(result_data, 0, 0);
+        });
+    }
+</script>
+</html>

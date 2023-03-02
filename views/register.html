@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/register_and_login.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/button.css">
+
+</head>
+<body>
+<div class="page">
+    <h3 class="header">注&emsp;&emsp;册</h3>
+    <div class="container">
+        <div class="register-form-container">
+            <div class="form">
+                <label for="email">账号&emsp;&emsp;</label>
+                <input class="normal-input" id="email" type="email" placeholder="请输入手机号码或邮箱">
+            </div>
+            <div class="form">
+                <label for="username">用户名&emsp;</label>
+                <input class="normal-input" id="username" type="text" placeholder="英文字母和数字的组合，最长20字符">
+            </div>
+            <div class="form">
+                <label for="password">&emsp;&emsp;&emsp;密码&emsp;&emsp;</label>
+                <input class="normal-input" id="password" oninput="check_password(this.value)" type="password"
+                       placeholder="6-20位数字或英文字符。区分大小写">
+                <img class="small-icon-img"
+                     style="margin-left: 2px"
+                     src="/images/icon/plain.jpg"
+                     alt="eye"
+                     onclick="change_pw()"
+                >
+                <div id="pw-check">空</div>
+            </div>
+            <div class="form">
+                <label for="captcha">验证码&emsp;</label>
+                <input class="captcha-input" id="captcha" type="text" placeholder="请输入验证码"/>
+                <div id="captcha-svg">
+                </div>
+                <img class="small-icon-img" onclick="set_captcha()" src="/images/icon/refresh.jpg" alt="refresh">
+            </div>
+            <div class="form">
+                <button class="normal-button" id="register-button" onclick="register()">注&emsp;&emsp;册</button>
+            </div>
+            <label id="register" class="form" style="font-size: 12px">已有账号?&emsp;|&emsp;使用第三方账号？&emsp;<a
+                    href="/">立即登录</a></label>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    function check_password(str) {
+        console.log(str);
+        let hint = document.getElementById('pw-check');
+        let but = document.getElementById('register-button');
+        if (str.length === 0) {
+            hint.innerText = '空'
+        } else if (str.length < 6) {
+            hint.innerText = '短';
+        } else if (str.length > 20) {
+            hint.innerText = '长';
+        } else {
+            let level = 0;
+            if (/[0-9]/.test(str)) level++;
+            if (/[a-zA-Z]/.test(str)) level++;
+            if (/[-~#|-·(){}+=*^&%$@!.,<>;:'"?`]/.test(str)) level++;
+
+            if (/[^0-9a-zA-Z-~#|-·(){}+=*^&%$@!.,<>;:'"?`]/.test(str)) {
+                hint.innerText = '？'
+                return;
+            }
+
+            if (level === 1) {
+                hint.innerText = '弱';
+            } else if (level === 2) {
+                hint.innerText = '中';
+            } else if (level === 3) {
+                hint.innerText = '强'
+            } else {
+                hint.innerText = '？'
+            }
+        }
+    }
+
+    function set_captcha() {
+        axios.post('/api/captcha').then(res => {
+            let svg_bg = document.getElementById('captcha-svg');
+            svg_bg.innerHTML = res.data.data.svg;
+        })
+    }
+
+    function register() {
+        let email = document.getElementById("email").value;
+        if (email === "") {
+            alert("请输入邮箱")
+            return;
+        } else if (!/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email)) {
+            alert("邮箱格式有误")
+            return;
+        }
+        let name = document.getElementById("username").value;
+        if (name === "") {
+            alert("请输入账号");
+            return;
+        } else if (/[^0-9a-zA-Z]/.test(name)) {
+            alert("用户名包含规定外的字符");
+            return;
+        } else if (name.length > 20) {
+            alert("您的用户名过长");
+            return;
+        }
+        let pw = document.getElementById("password").value;
+        let hint = document.getElementById('pw-check');
+        if (pw === "") {
+            alert("请输入密码");
+            return;
+        } else if (pw.length < 6 || pw.length > 20) {
+            alert("您的密码长度不符合要求");
+            return;
+        } else if (hint.innerText === '？') {
+            alert("您的密码不应包括全角字符");
+            return;
+        }
+        let captcha = document.getElementById("captcha").value;
+        if (captcha === "") {
+            alert("请输入验证码");
+            return;
+        }
+
+        axios.post('/api/register', {
+            name: name,
+            email: email,
+            password: pw,
+            captcha: captcha
+        }).then(res => {
+            if (res.data.error_code !== '0') {
+                alert(res.data.msg);
+            } else {
+                console.log(res)
+                alert('注册成功！');
+                location.href = '/';
+            }
+        });
+    }
+
+    function change_pw() {
+        let pw_input = document.getElementById("password")
+        let pw_pic = document.getElementsByClassName("small-icon-img")[0];
+        if (pw_input.type === 'password') {
+            pw_input.type = 'text';
+            pw_pic.src = "/images/icon/secret.jpg"
+        } else {
+            pw_input.type = 'password';
+            pw_pic.src = "/images/icon/plain.jpg"
+        }
+    }
+
+    set_captcha()
+</script>
+</html>

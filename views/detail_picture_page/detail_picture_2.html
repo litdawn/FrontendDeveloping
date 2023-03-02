@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2.jpg</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/detail_picture.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/button.css">
+</head>
+<body>
+<button class="icon" id="user-icon" disabled>
+    <img class="icon-img" src="/images/icon/user.jpg" alt="user">
+</button>
+<div id="username"></div>
+<div class="pic">
+    <img id="pic-item" src="/images/ori_img/2.jpg" alt="2.jpg">
+</div>
+
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function get_user_info() {
+        const token = localStorage.getItem('token');
+        axios.defaults.headers.authorization = 'Bearer ' + token;
+        axios.get('/api/get_user_info').then(res => {
+            let login_button = document.getElementsByClassName('button-nav')[0];
+            let user_info = document.getElementById('username');
+            let user_icon = document.getElementById('user-icon');
+            if (res.data.error_code === '0') {
+                if (login_button) {
+                    login_button.remove();
+                }
+                user_info.innerText = "user:" + res.data.info.username;
+                console.log("已登录")
+            } else {
+                user_info.remove();
+                user_icon.remove();
+                console.log("未登录")
+            }
+        })
+    }
+
+    get_user_info();
+</script>
+</html>

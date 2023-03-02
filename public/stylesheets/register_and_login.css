@@ -1,0 +1,105 @@
+.page{
+    margin-top: 5%;
+}
+
+
+html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+body{
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-image:linear-gradient(ghostwhite,linen,lightsteelblue,lavender) ;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+.header{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    margin: 0 auto;
+    padding: 2em;
+    width: 35em;
+    overflow: auto;
+    border: 2px solid rgba(0,0,0,30%);
+    box-shadow: black;
+    border-radius: 20px;
+    background: rgba(255,255,255,50%);
+}
+.register-form-container{
+    padding-top: 2em;
+    height: 20em;
+    width: 30em;
+    border-radius: 20px;
+    overflow: auto;
+    margin: 0 auto;
+    background-color: rgba(255,255,255,80%);
+}
+.login-form-container{
+    padding-top: 2em;
+    height: 20em;
+    width: 30em;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+    background-color: rgba(255,255,255,80%);
+}
+.login-form-container:hover{
+    box-shadow: 3px 3px 3px 0 rgba(0,0,0,20%);
+}
+.register-form-container:hover{
+    box-shadow: 3px 3px 3px 0 rgba(0,0,0,20%);
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7em;
+}
+.normal-input{
+    border-radius: 2px;
+    width: 240px;
+    height: 22px;
+    /*padding: 6px 100px;*/
+    outline: lavender;
+}
+.captcha-input{
+    border-radius: 2px;
+    width: 120px;
+    height: 22px;
+    outline: lavender;
+}
+input:hover{
+    box-shadow: 1px 1px 1px 0 rgba(0,0,0,20%);
+}
+input::-ms-input-placeholder{
+    font-size: 10px;
+}
+
+input::-webkit-input-placeholder{
+    font-size: 10px;
+}
+label{
+    font-size: 14px;
+    font-weight: bold;
+}
+#captcha-svg{
+    padding-left: 10px;
+    padding-right: 1px;
+}
+#pw-check{
+    font-size: 14px;
+    color: cadetblue;
+    font-weight: bold;
+    padding-left:15px;
+}
+
+

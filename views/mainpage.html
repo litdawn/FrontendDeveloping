@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/mainpage.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/button.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+<div id="navi-bar">
+    <div id="bar">
+        <h1>那抹秋色</h1>
+        <h2>by 201250206 邓楚宸</h2>
+    </div>
+    <div class="under-bar">
+        <div class="style-change-button">
+            <button class="icon" id="light-icon" onclick="change('light')">
+                <img class="icon-img" src="/images/icon/sun.jpg" alt="sun">
+            </button>
+            <button class="icon" id="dark-icon" onclick="change('dark')">
+                <img class="icon-img" src="/images/icon/moon.jpg" alt="moon">
+            </button>
+        </div>
+        <div>
+            <button class="normal-button" onclick="to_transfer()">风格迁移</button>
+        </div>
+        <nav>
+            <a class="button-nav" href="/">
+                <button class="normal-button">登录</button>
+            </a>
+
+
+            <button class="icon" id="user-icon" disabled>
+                <img class="icon-img" src="/images/icon/user.jpg" alt="user">
+            </button>
+            <div style="" id="username"></div>
+        </nav>
+    </div>
+</div>
+
+<div id="content">
+    <div id="container">
+        <div id="pic-container">
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_1.html">
+                    <img class="pic" src="/images/thumbnail/1.jpg" alt="1.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_2.html">
+                    <img class="pic" src="/images/thumbnail/2.jpg" alt="2.jpg"/>
+                </a>
+            </div>
+
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_28.html">
+                    <img class="pic" src="/images/thumbnail/28.jpg" alt="28.jpg"/>
+                </a>
+            </div>
+
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_5.html">
+                    <img class="pic" src="/images/thumbnail/5.jpg" alt="5.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_6.html">
+                    <img class="pic" src="/images/thumbnail/6.jpg" alt="6.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_7.html">
+                    <img class="pic" src="/images/thumbnail/7.jpg" alt="7.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_8.html">
+                    <img class="pic" src="/images/thumbnail/8.jpg" alt="8.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_9.html">
+                    <img class="pic" src="/images/thumbnail/9.jpg" alt="9.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_25.html">
+                    <img class="pic" src="/images/thumbnail/25.jpg" alt="25.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_10.html">
+                    <img class="pic" src="/images/thumbnail/10.jpg" alt="10.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_21.html">
+                    <img class="pic" src="/images/thumbnail/21.jpg" alt="21.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_11.html">
+                    <img class="pic" src="/images/thumbnail/11.jpg" alt="11.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_3.html">
+                    <img class="pic" src="/images/thumbnail/3.jpg" alt="3.jpg"/>
+                </a>
+            </div>
+
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_12.html">
+                    <img class="pic" src="/images/thumbnail/12.jpg" alt="12.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_14.html">
+                    <img class="pic" src="/images/thumbnail/14.jpg" alt="14.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_16.html">
+                    <img class="pic" src="/images/thumbnail/16.jpg" alt="16.jpg"/>
+                </a>
+            </div>
+
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_17.html">
+                    <img class="pic" src="/images/thumbnail/17.jpg" alt="17.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_18.html">
+                    <img class="pic" src="/images/thumbnail/18.jpg" alt="18.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_19.html">
+                    <img class="pic" src="/images/thumbnail/19.jpg" alt="19.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_30.html">
+                    <img class="pic" src="/images/thumbnail/30.jpg" alt="30.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_22.html">
+                    <img class="pic" src="/images/thumbnail/22.jpg" alt="22.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_4.html">
+                    <img class="pic" src="/images/thumbnail/4.jpg" alt="4.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_23.html">
+                    <img class="pic" src="/images/thumbnail/23.jpg" alt="23.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_24.html">
+                    <img class="pic" src="/images/thumbnail/24.jpg" alt="24.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_26.html">
+                    <img class="pic" src="/images/thumbnail/26.jpg" alt="26.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_27.html">
+                    <img class="pic" src="/images/thumbnail/27.jpg" alt="27.jpg"/>
+                </a>
+            </div>
+            <div class="pic-item">
+                <a href="/detail_picture_page/detail_picture_29.html">
+                    <img class="pic" src="/images/thumbnail/29.jpg" alt="29.jpg"/>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="/javascripts/style.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function to_transfer() {
+        location.href = '/style_transfer.html'
+    }
+
+    function get_user_info() {
+        const token = localStorage.getItem('token');
+        axios.defaults.headers.authorization = 'Bearer ' + token;
+        axios.get('/api/get_user_info').then(res => {
+            let login_button = document.getElementsByClassName('button-nav')[0];
+            let user_info = document.getElementById('username');
+            let user_icon = document.getElementById('user-icon');
+            if (res.data.error_code === '0') {
+                if (login_button)
+                    login_button.remove();
+                user_info.innerText = "user:" + res.data.info.username;
+                console.log("已登录")
+            } else {
+                user_info.remove();
+                user_icon.remove();
+                console.log("未登录")
+            }
+        })
+    }
+
+    get_user_info();
+</script>
+</html>

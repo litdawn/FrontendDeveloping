@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel='stylesheet' href='/stylesheets/register_and_login.css'/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/button.css"/>
+</head>
+<body>
+<div class="page">
+    <h3 class="header">登&emsp;&emsp;录</h3>
+    <div class="container">
+        <div class="login-form-container">
+            <div class="form">
+                <label for="username">账号&emsp;&emsp;</label>
+                <input class="normal-input" id="username" type="text" placeholder=" 请输入用户名、手机号或邮箱"/>
+            </div>
+            <div class="form">
+                <label for="password">密码&emsp;&emsp;</label>
+                <input class="normal-input" id="password" type="password" placeholder=" 请输入密码"/>
+            </div>
+            <div class="form">
+                <label for="captcha">验证码 &emsp;</label>
+                <input class="captcha-input" id="captcha" type="text" placeholder="请输入验证码"/>
+                <div id="captcha-svg">
+                </div>
+                <img class="small-icon-img" src="/images/icon/refresh.jpg" onclick="set_captcha()" alt="refresh">
+            </div>
+            <div class="form">
+                <button class="normal-button" onclick="login()">登&emsp;&emsp;录</button>
+            </div>
+
+            <label id="register" class="form" style="font-size: 12px">
+                <a href="login.html">找回密码</a>
+                &emsp;|&emsp;没有账号？
+                <a href="register.html">立即注册</a>
+            </label>
+            <label class="form" style="font-size: 12px">
+                第三方账号登录？
+                <button class="icon" style="border-width: 0;background-color: #FCFFFF" onclick="set_captcha()">
+                    <img class="icon-img" src="/images/icon/qq.jpg" alt="q">
+                </button>
+                /
+                <button class="icon" style="border-width: 0;background-color: #FCFFFF" onclick="set_captcha()">
+                    <img class="icon-img" src="/images/icon/wb.jpg" alt="wb">
+                </button>
+            </label>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    function set_captcha() {
+        axios.post('/api/captcha').then(res => {
+            let svg_bg = document.getElementById('captcha-svg');
+            svg_bg.innerHTML = res.data.data.svg;
+        })
+    }
+
+    function login() {
+        let name = document.getElementById("username").value;
+        if (name === "") {
+            alert("请输入账号")
+            return;
+        }
+        let pw = document.getElementById("password").value;
+        if (pw === "") {
+            alert("请输入密码")
+            return;
+        }
+        let captcha = document.getElementById("captcha").value;
+        if (captcha === "") {
+            alert("请输入验证码")
+            return;
+        }
+        let email;
+        if (name.includes("@")) {
+            email = name;
+            name = ""
+        } else {
+            email = "";
+        }
+        axios.post('/api/login', {
+            name: name,
+            email: email,
+            password: pw,
+            captcha: captcha
+        }).then(res => {
+            if (res.data.error_code !== '0') {
+                alert(res.data.msg);
+            } else {
+                alert('登录成功！');
+                localStorage.setItem('token', res.data.data.token);
+                location.href = '/mainpage.html';
+            }
+        });
+
+    }
+
+    set_captcha();
+
+</script>
+</html>

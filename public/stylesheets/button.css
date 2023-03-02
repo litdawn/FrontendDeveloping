@@ -1,0 +1,107 @@
+:root{
+    --background-color: white;
+    --hover-background-color:linear-gradient(to right, ghostwhite,linen,lightsteelblue,lavender);
+    --hover-animation:normal-light-butt-ani 0.5s infinite;
+    --light-on-icon-border-color :lightsteelblue;
+    --dark-on-icon-border-color:rgba(0,0,0,30%);
+    --button-text-color:black;
+}
+.dark{
+    --background-color: lightslategray;
+    --hover-background-color: linear-gradient(to right, #0C1B22, #4C555E,lightslategray);
+    --hover-animation:normal-dark-butt-ani 0.5s infinite;
+    --light-on-icon-border-color :rgba(0,0,0,30%);
+    --dark-on-icon-border-color:lightsteelblue;
+    --button-text-color:whitesmoke;
+}
+.light{
+    --background-color: white;
+    --hover-background-color:linear-gradient(to right, ghostwhite,linen,lightsteelblue,lavender);
+    --hover-animation:normal-light-butt-ani 0.5s infinite;
+    --light-on-icon-border-color :lightsteelblue;
+    --dark-on-icon-border-color:rgba(0,0,0,30%);
+    --button-text-color:black;
+}
+
+/*普通按钮*/
+.button-nav{
+    width: 200px;
+    height: 30px;
+
+}
+.normal-button{
+    background-color:var(--background-color);
+    border: 2px solid;
+    border-radius: 4px;
+    width: 200px;
+    height: 30px;
+    text-decoration: none;
+    color: var(--button-text-color);
+    font-weight: bold;
+}
+.normal-button:hover{
+    box-shadow: 1px 1px 1px 1px darkgray;
+    background: var(--hover-background-color);
+    animation: var(--hover-animation);
+}
+@keyframes normal-light-butt-ani {
+    0%{
+        background-image:linear-gradient(to right, ghostwhite,linen,lightsteelblue,lavender) ;
+    }
+    25%{
+        background-image:linear-gradient(to right,linen,lightsteelblue,lavender,ghostwhite) ;
+    }
+    50%{
+        background-image:linear-gradient(to right,lightsteelblue,lavender,ghostwhite,linen) ;
+    }
+    75%{
+        background-image:linear-gradient(to right,lavender,ghostwhite,linen,lightsteelblue) ;
+    }
+    100%{
+        background-image:linear-gradient(to right, ghostwhite,linen,lightsteelblue,lavender) ;
+    }
+}
+@keyframes normal-dark-butt-ani {
+    0%{
+        background-image:linear-gradient(to right, #0C1B22, #4C555E,lightslategray) ;
+    }
+    33%{
+        background-image:linear-gradient(to right, #4C555E,lightslategray,#0C1B22) ;
+    }
+    66%{
+        background-image:linear-gradient(to right,lightslategray, #0C1B22, #4C555E) ;
+    }
+    100%{
+        background-image:linear-gradient(to right, #0C1B22, #4C555E,lightslategray) ;
+    }
+}
+/*图标式按钮*/
+.icon{
+    background-color: #F6F6F6;
+    width:45px;
+    height:45px;
+    border-radius: 20px;
+    border-width: 5px;
+}
+
+.icon-img{
+    width: 22px;
+    height: 22px;
+}
+#light-icon{
+    border-color: var(--light-on-icon-border-color);
+}
+#dark-icon{
+    border-color: var(--dark-on-icon-border-color);
+}
+
+.small-icon{
+    width:25px;
+    height:25px;
+    border-radius: 20px;
+    border-width: 0;
+}
+.small-icon-img{
+    width:15px;
+    height:15px;
+}
